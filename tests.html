@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Campus Life Planner - Tests</title>
+<style>
+	body{font-family:Arial, sans-serif; padding:20px; max-width:700px; margin:auto;}
+	li{margin:4px 0;}
+	.pass{color:#1b5e20;}
+	.fail{color:#b00020; font-weight:bold;}
+	#summary{font-size:1.2rem; margin-bottom:10px;}
+</style>
+</head>
+<body>
+<h1>Regex &amp; Function Tests</h1>
+<p>Open this file in a browser to run the small assertion checks below for the validators, search, and unit-conversion helpers (no testing framework needed).</p>
+
+<p id="summary">Running tests...</p>
+<ul id="results"></ul>
+
+<script type="module">
+import {
+	titleRegex,durationRegex,dateRegex,tagRegex,duplicateRegex,
+	isoDateTimeRegex,validateRecord,getValidationErrors
+} from './scripts/validators.js';
+import {compileRegex,highlight,escapeHtml} from './scripts/search.js';
+import {
+	minutesToHours,hoursToMinutes,toCanonicalMinutes,
+	fromCanonicalMinutes,formatDuration
+} from './scripts/units.js';
+
+const resultsEl=document.getElementById('results');
+let passCount=0;
+let failCount=0;
+
+// Tiny assertion helper: prints a pass/fail line for each check.
+function assert(description,condition){
+	const li=document.createElement('li');
+	if(condition){
+		li.textContent='PASS - '+description;
+		li.className='pass';
+		passCount++;
+	}else{
+		li.textContent='FAIL - '+description;
+		li.className='fail';
+		failCount++;
+	}
+	resultsEl.appendChild(li);
+}
+
+// A complete, valid record used as a baseline for several tests below.
+const validTask={
+	id:'rec_1', title:'Read book', dueDate:'2026-06-20',
+	duration:90, tag:'Study',
+	createdAt:'2026-06-10T09:00:00.000Z', updatedAt:'2026-06-10T09:00:00.000Z'
+};
+
+// ---------- titleRegex ----------
+assert('titleRegex accepts a normal title', titleRegex.test('Math Assignment'));
+assert('titleRegex rejects a leading space', !titleRegex.test(' Math Assignment'));
+assert('titleRegex rejects a trailing space', !titleRegex.test('Math Assignment '));
+assert('titleRegex rejects an empty string', !titleRegex.test(''));
+
+// ---------- durationRegex ----------
+assert('durationRegex accepts a whole number', durationRegex.test('90'));
+assert('durationRegex accepts a decimal value', durationRegex.test('2.5'));
+assert('durationRegex rejects a negative number', !durationRegex.test('-1'));
+assert('durationRegex rejects letters', !durationRegex.test('abc'));
+
+// ---------- dateRegex ----------
+assert('dateRegex accepts a valid date', dateRegex.test('2026-06-20'));
+assert('dateRegex rejects an invalid month (13)', !dateRegex.test('2026-13-20'));
+assert('dateRegex rejects the wrong format (DD/MM/YYYY)', !dateRegex.test('20/06/2026'));
+
+// ---------- tagRegex ----------
+assert('tagRegex accepts a single word', tagRegex.test('Study'));
+assert('tagRegex accepts a hyphenated tag', tagRegex.test('Self-Care'));
+assert('tagRegex rejects numbers in a tag', !tagRegex.test('Study2'));
+
+// ---------- duplicateRegex (advanced rule: back-reference) ----------
+assert('duplicateRegex catches a repeated word', duplicateRegex.test('the the meeting'));
+assert('duplicateRegex allows a normal sentence', !duplicateRegex.test('the meeting today'));
+
+// ---------- isoDateTimeRegex (createdAt / updatedAt) ----------
+assert('isoDateTimeRegex accepts a real toISOString() value', isoDateTimeRegex.test(new Date().toISOString()));
+assert('isoDateTimeRegex rejects a date-only string', !isoDateTimeRegex.test('2026-06-20'));
+assert('isoDateTimeRegex rejects a missing "Z"', !isoDateTimeRegex.test('2026-06-20T09:00:00.000'));
+
+// ---------- validateRecord / getValidationErrors (used for JSON import) ----------
+assert('validateRecord accepts a well-formed task', validateRecord(validTask));
+assert('validateRecord rejects a task with a bad date', !validateRecord({...validTask,dueDate:'20-06-2026'}));
+assert('validateRecord rejects a task missing an id', !validateRecord({...validTask,id:undefined}));
+assert('validateRecord rejects a task missing createdAt', !validateRecord({...validTask,createdAt:undefined}));
+assert('validateRecord rejects a task missing updatedAt', !validateRecord({...validTask,updatedAt:undefined}));
+assert('validateRecord rejects updatedAt earlier than createdAt', !validateRecord({
+	...validTask,createdAt:'2026-06-20T09:00:00.000Z',updatedAt:'2026-06-10T09:00:00.000Z'
+}));
+assert('getValidationErrors lists a specific reason', getValidationErrors({...validTask,tag:'Study2'}).length>0);
+
+// ---------- compileRegex (safe regex compiler) ----------
+assert('compileRegex returns a RegExp for a valid pattern', compileRegex('stu','i') instanceof RegExp);
+assert('compileRegex returns null for a broken pattern', compileRegex('(unfinished','i')===null);
+
+// ---------- highlight ----------
+assert('highlight wraps a match in <mark>', highlight('Study session', /study/i)==='<mark>Study</mark> session');
+
+// ---------- escapeHtml ----------
+assert('escapeHtml escapes a script tag', escapeHtml('<script>')==='&lt;script&gt;');
+
+// ---------- units.js (Minutes <-> Hours conversion) ----------
+assert('minutesToHours converts 60 minutes to 1 hour', minutesToHours(60)===1);
+assert('minutesToHours converts 90 minutes to 1.5 hours', minutesToHours(90)===1.5);
+assert('hoursToMinutes converts 1.5 hours to 90 minutes', hoursToMinutes(1.5)===90);
+assert('toCanonicalMinutes treats minutes input as-is', toCanonicalMinutes(45,'minutes')===45);
+assert('toCanonicalMinutes converts hours input to minutes', toCanonicalMinutes(2,'hours')===120);
+assert('fromCanonicalMinutes displays minutes as-is', fromCanonicalMinutes(45,'minutes')===45);
+assert('fromCanonicalMinutes displays minutes as hours', fromCanonicalMinutes(120,'hours')===2);
+assert('formatDuration labels minutes correctly', formatDuration(90,'minutes')==='90 min');
+assert('formatDuration labels hours correctly', formatDuration(90,'hours')==='1.5 hr');
+
+document.getElementById('summary').textContent=`${passCount} passed, ${failCount} failed`;
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Life Planner</title>
+<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to Content</a>
+
+<header>
+	<h1>Campus Life Planner</h1>
+	<nav aria-label="Page sections">
+		<a href="#dashboard">Dashboard</a>
+		<a href="#addTask">Add Task</a>
+		<a href="#records">Records</a>
+		<a href="#about">About</a>
+		<a href="#settings">Settings</a>
+	</nav>
+</header>
+
+<main id="main">
+
+<section id="dashboard" aria-labelledby="dashboardHeading">
+	<h2 id="dashboardHeading">Dashboard</h2>
+	<p>Total Records: <span id="totalTasks">0</span></p>
+	<p>Total Duration: <span id="totalHours">0</span></p>
+	<p>Top Tag: <span id="topTag">-</span></p>
+
+	<h3>Last 7 Days (tasks due per day)</h3>
+	<div id="trendChart" class="trendChart" role="img" aria-label="Tasks due in the last 7 days"></div>
+
+	<div class="formRow">
+		<label for="targetHours" id="targetLabel">Weekly Target (minutes)</label>
+		<input id="targetHours" type="number" min="0" step="1" placeholder="e.g. 600">
+	</div>
+	<p id="targetMessage" role="status" aria-live="polite"></p>
+</section>
+
+<section id="addTask" aria-labelledby="formHeading">
+	<h2 id="formHeading">Add Task</h2>
+	<form id="taskForm">
+		<div class="formRow">
+			<label for="title">Title</label>
+			<input id="title" name="title" placeholder="e.g. Math Assignment" required>
+		</div>
+		<div class="formRow">
+			<label for="dueDate">Due Date</label>
+			<input id="dueDate" name="dueDate" type="date" required>
+		</div>
+		<div class="formRow">
+			<label for="duration" id="durationLabel">Duration (minutes)</label>
+			<input id="duration" name="duration" type="number" step="1" min="0" placeholder="e.g. 90" required>
+		</div>
+		<div class="formRow">
+			<label for="tag">Tag</label>
+			<input id="tag" name="tag" placeholder="e.g. Study" required>
+		</div>
+		<div class="formRow">
+			<button type="submit" id="saveBtn">Save Task</button>
+			<button type="button" id="cancelEditBtn" hidden>Cancel Edit</button>
+		</div>
+	</form>
+	<p id="status" role="status" aria-live="polite"></p>
+</section>
+
+<section id="searchSort" aria-labelledby="searchHeading">
+	<h2 id="searchHeading">Search &amp; Sort</h2>
+	<div class="formRow">
+		<label for="search">Regex Search</label>
+		<input id="search" placeholder="e.g. study|exam  or  @tag:Study">
+	</div>
+	<label class="inlineLabel"><input type="checkbox" id="caseToggle"> Case sensitive</label>
+	<p id="searchError" role="alert"></p>
+	<p id="searchResultsStatus" role="status" aria-live="polite"></p>
+
+	<div class="formRow">
+		<label for="sort">Sort by</label>
+		<select id="sort">
+			<option value="">No sorting</option>
+			<optgroup label="Title">
+				<option value="title-asc">Title: A &rarr; Z</option>
+				<option value="title-desc">Title: Z &rarr; A</option>
+			</optgroup>
+			<optgroup label="Due Date">
+				<option value="date-desc">Due Date: Newest First</option>
+				<option value="date-asc">Due Date: Oldest First</option>
+			</optgroup>
+			<optgroup label="Duration">
+				<option value="duration-asc">Duration: Ascending</option>
+				<option value="duration-desc">Duration: Descending</option>
+			</optgroup>
+		</select>
+	</div>
+</section>
+
+<section id="records" aria-labelledby="recordsHeading">
+	<h2 id="recordsHeading">Records</h2>
+	<div class="tableWrap">
+		<table role="table">
+			<caption class="visuallyHidden">List of tasks with due date, duration, tag, and created/updated dates</caption>
+			<thead role="rowgroup">
+				<tr role="row">
+					<th role="columnheader" scope="col">Title</th>
+					<th role="columnheader" scope="col">Due Date</th>
+					<th role="columnheader" scope="col" id="durationHeader">Duration (min)</th>
+					<th role="columnheader" scope="col">Tag</th>
+					<th role="columnheader" scope="col">Created</th>
+					<th role="columnheader" scope="col">Updated</th>
+					<th role="columnheader" scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody id="taskTable" role="rowgroup"></tbody>
+		</table>
+	</div>
+</section>
+
+<section id="settings" aria-labelledby="settingsHeading">
+	<h2 id="settingsHeading">Settings</h2>
+	<div class="formRow">
+		<label for="unitSelect">Duration Unit</label>
+		<select id="unitSelect">
+			<option value="minutes">Minutes</option>
+			<option value="hours">Hours</option>
+		</select>
+	</div>
+	<button type="button" id="exportBtn">Export JSON</button>
+	<div class="formRow">
+		<label for="importFile">Import JSON</label>
+		<input type="file" id="importFile" accept="application/json">
+	</div>
+</section>
+
+</main>
+
+<footer>
+	<section id="about">
+	<h2>About</h2>
+	<p>Campus Life Planner helps students keep track of assignments, club meetings and other campus tasks: what's due, how long it will take, and how it's tagged.</p>
+	<p>GitHub: <a href="https://github.com/dmpamira-debug">dmpamira-debug</a> | Email: <a href="mailto:d.mpamira@alustudent.com">d.mpamira@alustudent.com</a></p>
+</section>
+</footer>
+
+<script src="scripts/bundle.js"></script>
+</body>
+</html>

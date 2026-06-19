@@ -1,0 +1,16 @@
+[
+	{"id":"rec_0001","title":"Math Assignment","dueDate":"2026-06-20","duration":120,"tag":"Study","createdAt":"2026-06-10T09:00:00.000Z","updatedAt":"2026-06-10T09:00:00.000Z"},
+	{"id":"rec_0002","title":"Club Meeting","dueDate":"2026-06-18","duration":60,"tag":"Campus","createdAt":"2026-06-10T09:05:00.000Z","updatedAt":"2026-06-10T09:05:00.000Z"},
+	{"id":"rec_0003","title":"Programming Lab","dueDate":"2026-06-25","duration":240,"tag":"Study","createdAt":"2026-06-10T09:10:00.000Z","updatedAt":"2026-06-12T14:30:00.000Z"},
+	{"id":"rec_0004","title":"Library Research","dueDate":"2026-06-22","duration":180,"tag":"Study","createdAt":"2026-06-11T08:00:00.000Z","updatedAt":"2026-06-11T08:00:00.000Z"},
+	{"id":"rec_0005","title":"Football Practice","dueDate":"2026-06-19","duration":120,"tag":"Sports","createdAt":"2026-06-11T10:15:00.000Z","updatedAt":"2026-06-11T10:15:00.000Z"},
+	{"id":"rec_0006","title":"Group Project","dueDate":"2026-06-27","duration":300,"tag":"Study","createdAt":"2026-06-12T16:45:00.000Z","updatedAt":"2026-06-12T16:45:00.000Z"},
+	{"id":"rec_0007","title":"Volunteer Event","dueDate":"2026-06-21","duration":120,"tag":"Campus","createdAt":"2026-06-12T11:20:00.000Z","updatedAt":"2026-06-12T11:20:00.000Z"},
+	{"id":"rec_0008","title":"Reading Session","dueDate":"2026-06-23","duration":60,"tag":"Study","createdAt":"2026-06-13T07:30:00.000Z","updatedAt":"2026-06-13T07:30:00.000Z"},
+	{"id":"rec_0009","title":"Workshop","dueDate":"2026-06-28","duration":120,"tag":"Campus","createdAt":"2026-06-13T13:00:00.000Z","updatedAt":"2026-06-13T13:00:00.000Z"},
+	{"id":"rec_0010","title":"Exam Revision","dueDate":"2026-06-30","duration":360,"tag":"Study","createdAt":"2026-06-14T09:00:00.000Z","updatedAt":"2026-06-14T09:00:00.000Z"},
+	{"id":"rec_0011","title":"Quick Nap","dueDate":"2026-06-17","duration":30,"tag":"Self-Care","createdAt":"2026-06-14T12:00:00.000Z","updatedAt":"2026-06-14T12:00:00.000Z"},
+	{"id":"rec_0012","title":"Meeting at 14:30 with advisor","dueDate":"2026-06-17","duration":60,"tag":"Campus","createdAt":"2026-06-15T09:00:00.000Z","updatedAt":"2026-06-15T09:00:00.000Z"},
+	{"id":"rec_0013","title":"Year-end Marathon Coding Session","dueDate":"2026-12-31","duration":720,"tag":"Study","createdAt":"2026-06-15T09:30:00.000Z","updatedAt":"2026-06-15T09:30:00.000Z"},
+	{"id":"rec_0014","title":"Coffee with classmates","dueDate":"2026-06-19","duration":75,"tag":"Social","createdAt":"2026-06-15T10:00:00.000Z","updatedAt":"2026-06-15T10:00:00.000Z"}
+]
