@@ -412,4 +412,5 @@ The failure message identifies the specific validation or function that did not 
 
 ---
 
-Watch this video for demo presentation: https://youtu.be/ohWpTF2fzzk
+VIDEO DEMO: https://youtu.be/ohWpTF2fzzk
+LIVE DEMO: https://dmpamira-debug.github.io/campus_life_planner/
